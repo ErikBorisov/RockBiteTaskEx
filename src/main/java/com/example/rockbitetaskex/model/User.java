@@ -1,20 +1,20 @@
 package com.example.rockbitetaskex.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 
 @Entity
 @Table(name = "user")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -24,4 +24,12 @@ public class User extends BaseEntity{
 
     @Column(name = "user_name")
     private String userName;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Warehouse> warehouses = new ArrayList<>();
+
+    public void addWarehouse(Warehouse warehouse){
+        warehouse.setUser(this);
+        warehouses.add(warehouse);
+    }
 }

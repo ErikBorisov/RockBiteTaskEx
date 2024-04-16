@@ -1,6 +1,8 @@
 package com.example.rockbitetaskex.controller;
 
+import com.example.rockbitetaskex.exceptions.UserNotFoundException;
 import com.example.rockbitetaskex.model.User;
+import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/controller")
+@RequestMapping("/api/v1/controller/user")
 public class UserController {
 
     @Autowired
@@ -82,6 +84,18 @@ public class UserController {
     public User updateCustomer(@PathVariable("id") Long id, @RequestBody User customer) {
         customer.setId(id);
         return userService.updateCustomer(customer);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void addUserWarehouse(Long userId, @RequestBody @Validated Warehouse warehouse) {
+        User user = userService.getById(userId);
+
+        if (user != null) {
+            user.addWarehouse(warehouse);
+            userService.save(user);
+        } else {
+            throw new UserNotFoundException("User with id " + userId + "is not found");
+        }
     }
 
 }
