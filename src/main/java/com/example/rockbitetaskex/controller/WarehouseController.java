@@ -41,7 +41,7 @@ public class WarehouseController {
             warehouse.addMaterial(material);
             warehouseService.save(warehouse);
         } else {
-            throw new UserNotFoundException("User with id " + warehouseId + "is not found");
+            throw new WarehouseNotFoundException("Warehouse with id " + warehouseId + "is not found");
         }
     }
 
