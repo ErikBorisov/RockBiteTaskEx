@@ -14,6 +14,6 @@ public interface UserService {
 
     List<User> getAll();
 
-    User updateCustomer(User customer);
+    User updateUser(User user);
 
 }

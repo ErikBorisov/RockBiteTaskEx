@@ -1,5 +1,8 @@
 package com.example.rockbitetaskex.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,9 +11,9 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 
 @Entity
 @Table(name = "user")
@@ -25,11 +28,16 @@ public class User extends BaseEntity {
     @Column(name = "user_name")
     private String userName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    @JsonManagedReference
     private List<Warehouse> warehouses = new ArrayList<>();
 
-    public void addWarehouse(Warehouse warehouse){
+
+    public void addWarehouse(Warehouse warehouse) {
         warehouse.setUser(this);
         warehouses.add(warehouse);
     }
+
 }

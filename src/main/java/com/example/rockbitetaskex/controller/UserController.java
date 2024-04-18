@@ -22,8 +22,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getCustomer(@PathVariable("id") Long id) {
+//    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+//        User user = this.userService.getById(id);
+//
+//        if (id == null) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        if (user == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
+
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         User user = this.userService.getById(id);
 
         if (id == null) {
@@ -36,7 +50,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> saveCustomer(@RequestBody @Validated User user) {
+    public ResponseEntity<User> saveUser(@RequestBody @Validated User user) {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         if (user == null) {
@@ -46,20 +60,9 @@ public class UserController {
         return new ResponseEntity<>(user, httpHeaders, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Customer> updateCustomer(@RequestBody @Validated Customer customer, UriComponentsBuilder builder) {
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        if (customer == null) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//        this.customerService.save(customer);
-//
-//        return new ResponseEntity<>(customer, headers, HttpStatus.OK);
-//    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> deleteCustomer(@PathVariable("id") Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable("id") Long id) {
         User user = this.userService.getById(id);
 
         if (user == null) {
@@ -81,13 +84,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User updateCustomer(@PathVariable("id") Long id, @RequestBody User customer) {
-        customer.setId(id);
-        return userService.updateCustomer(customer);
+    public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        user.setId(id);
+        return userService.updateUser(user);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addUserWarehouse(Long userId, @RequestBody @Validated Warehouse warehouse) {
+    @RequestMapping(value = "/{userID}/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void addUserWarehouse(@PathVariable("userID") Long userId, @RequestBody @Validated Warehouse warehouse) {
         User user = userService.getById(userId);
 
         if (user != null) {

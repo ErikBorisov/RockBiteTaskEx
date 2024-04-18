@@ -20,6 +20,10 @@ public class Material extends BaseEntity {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    private Warehouse warehouse;
+
+    @ManyToOne
     @JoinColumn(name = "material_type_id")
     private MaterialType materialType;
 }

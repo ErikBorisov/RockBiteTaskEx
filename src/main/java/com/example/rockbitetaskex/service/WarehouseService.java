@@ -5,6 +5,12 @@ import com.example.rockbitetaskex.model.Warehouse;
 
 public interface WarehouseService {
 
-    Warehouse save(Warehouse warehouse, User user);
+//    Warehouse save(Warehouse warehouse, User user);
+
+    void save(Warehouse warehouse);
+
+    Warehouse getById(Long id);
+
+    void delete(Long id);
 
 }

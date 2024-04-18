@@ -19,30 +19,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        log.info("IN CustomerServiceImpl getById {}", id);
+        log.info("IN UserServiceImpl getById {}", id);
         return userRepository.getOne(id);
     }
 
     @Override
-    public void save(User customer) {
-        log.info("In CustomerServiceImpl save {}", customer);
-        userRepository.save(customer);
+    public void save(User user) {
+        log.info("In UserServiceImpl save {}", user);
+        userRepository.save(user);
     }
 
     @Override
     public void delete(Long id) {
-        log.info("In CustomerServiceImpl delete {}", id);
+        log.info("In UserServiceImpl delete {}", id);
         userRepository.deleteById(id);
     }
 
     @Override
     public List<User> getAll() {
-        log.info("In CustomerServiceImpl getAll");
+        log.info("In UserServiceImpl getAll");
         return userRepository.findAll();
     }
 
     @Override
-    public User updateCustomer(User customer) {
-        return userRepository.save(customer);
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 }
