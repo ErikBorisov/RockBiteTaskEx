@@ -13,4 +13,5 @@ public interface WarehouseService {
 
     void delete(Long id);
 
+    void moveMaterialBetweenWarehouses(Long warehouse1ID, Long warehouse2Id, Long materialId);
 }

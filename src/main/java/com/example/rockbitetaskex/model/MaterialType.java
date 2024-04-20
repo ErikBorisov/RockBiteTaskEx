@@ -1,8 +1,5 @@
 package com.example.rockbitetaskex.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,8 +26,8 @@ public class MaterialType extends BaseEntity {
     @Column
     private Long maxCapacity;
 
-    @OneToOne
-    @JoinColumn(name = "material_id")
-    @JsonBackReference
-    private Material material;
+//    @OneToOne
+//    @JoinColumn(name = "material_id")
+//    @JsonBackReference
+//    private Material material;
 }

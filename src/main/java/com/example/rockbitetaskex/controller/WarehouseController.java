@@ -3,6 +3,7 @@ package com.example.rockbitetaskex.controller;
 import com.example.rockbitetaskex.exceptions.UserNotFoundException;
 import com.example.rockbitetaskex.exceptions.WarehouseNotFoundException;
 import com.example.rockbitetaskex.model.Material;
+import com.example.rockbitetaskex.model.MaterialType;
 import com.example.rockbitetaskex.model.User;
 import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.service.WarehouseService;
@@ -56,5 +57,17 @@ public class WarehouseController {
         warehouseService.delete(warehouseId);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/move", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Warehouse> moveMaterial(@RequestParam("warehouseId1") Long warehouseId1,
+                                                  @RequestParam("warehouseId2") Long warehouseId2,
+                                                  @RequestParam("materialId") Long materialId) {
+        try {
+            warehouseService.moveMaterialBetweenWarehouses(warehouseId1, warehouseId2, materialId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

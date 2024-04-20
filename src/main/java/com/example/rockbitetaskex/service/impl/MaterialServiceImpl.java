@@ -1,7 +1,6 @@
 package com.example.rockbitetaskex.service.impl;
 
 import com.example.rockbitetaskex.model.Material;
-import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.repository.MaterialRepository;
 import com.example.rockbitetaskex.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,10 @@ public class MaterialServiceImpl implements MaterialService {
     public void save(Material material) {
         materialRepository.save(material);
     }
+
+//    public Material createMaterial(String name, MaterialType materialType){
+//        Material material = new Material(name, materialType);
+//    }
 
     @Override
     public Material getById(Long id) {

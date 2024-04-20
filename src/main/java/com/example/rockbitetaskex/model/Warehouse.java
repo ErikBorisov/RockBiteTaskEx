@@ -6,7 +6,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -41,4 +43,21 @@ public class Warehouse extends BaseEntity {
                 "name='" + name + '\'' +
                 '}';
     }
+
+    public int getMaterialQuantity(MaterialType materialType) {
+        int totalQuantity = 0;
+        for (Material material : materials) {
+            if (material.getMaterialType().equals(materialType)) {
+                totalQuantity += material.getQuantity();
+            }
+        }
+        return totalQuantity;
+    }
+
+//    @ElementCollection
+//    @CollectionTable(name = "warehouse_materials", joinColumns = @JoinColumn(name = "warehouse_id"))
+//    @MapKeyJoinColumn(name = "material_type_id")
+//    @Column(name = "quantity")
+//    private Map<MaterialType, Long> materialQuantities = new HashMap<>();
+
 }

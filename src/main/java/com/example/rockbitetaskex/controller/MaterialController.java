@@ -3,6 +3,7 @@ package com.example.rockbitetaskex.controller;
 import com.example.rockbitetaskex.exceptions.MaterialNotFoundException;
 import com.example.rockbitetaskex.model.Material;
 import com.example.rockbitetaskex.model.MaterialType;
+import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,10 +37,25 @@ public class MaterialController {
         Material material = this.materialService.getById(materialId);
 
         if (material != null) {
-            material.addMaterialType(materialType);
+            material.setMaterialType(materialType);
             materialService.save(material);
         } else {
             throw new MaterialNotFoundException("Material with id " + materialId + "not found");
         }
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Warehouse> deleteMaterial(@PathVariable("id") Long materialId) {
+        Material material = this.materialService.getById(materialId);
+
+
+
+        if (material == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        materialService.delete(materialId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

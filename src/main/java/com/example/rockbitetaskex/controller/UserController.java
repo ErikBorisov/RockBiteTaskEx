@@ -89,7 +89,7 @@ public class UserController {
         return userService.updateUser(user);
     }
 
-    @RequestMapping(value = "/{userID}/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{userID}/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUserWarehouse(@PathVariable("userID") Long userId, @RequestBody @Validated Warehouse warehouse) {
         User user = userService.getById(userId);
 
