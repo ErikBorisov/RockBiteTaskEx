@@ -1,10 +1,7 @@
 package com.example.rockbitetaskex.controller;
 
-import com.example.rockbitetaskex.exceptions.UserNotFoundException;
 import com.example.rockbitetaskex.exceptions.WarehouseNotFoundException;
 import com.example.rockbitetaskex.model.Material;
-import com.example.rockbitetaskex.model.MaterialType;
-import com.example.rockbitetaskex.model.User;
 import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +65,16 @@ public class WarehouseController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/material-qunatity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> getMaterialQuantityInWarehouse(@RequestParam Long warehouseId,@RequestParam Long materialId){
+        try {
+            long quantity = warehouseService.getMaterialQuantityInWarehouse(warehouseId, materialId);
+            return ResponseEntity.ok(quantity);
+        } catch (Exception e){
+            return (ResponseEntity<Long>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

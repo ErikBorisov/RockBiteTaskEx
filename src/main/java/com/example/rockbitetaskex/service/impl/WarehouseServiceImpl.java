@@ -1,6 +1,7 @@
 package com.example.rockbitetaskex.service.impl;
 
 import com.example.rockbitetaskex.model.Material;
+import com.example.rockbitetaskex.model.MaterialType;
 import com.example.rockbitetaskex.model.Warehouse;
 import com.example.rockbitetaskex.repository.WarehouseRepository;
 import com.example.rockbitetaskex.service.WarehouseService;
@@ -44,9 +45,6 @@ public class WarehouseServiceImpl implements WarehouseService {
                 .orElseThrow(() -> new RuntimeException("Target warehouse not found."));
 
 
-//        Warehouse warehouse1 = warehouseRepository.getOne(warehouse1ID);
-//        Warehouse warehouse2 = warehouseRepository.getOne(warehouse2Id);
-
         Material materialToMove = null;
         for (Material material : warehouse1.getMaterials()) {
             if (material.getId().equals(materialId)) {
@@ -65,5 +63,25 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouseRepository.save(warehouse1);
         warehouseRepository.save(warehouse2);
     }
+
+    @Override
+    public Long getMaterialQuantityInWarehouse(Long warehouseId, Long materialId) {
+        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElseThrow(() -> new RuntimeException("Warehouse is not found"));
+
+        Material material = null;
+        for (Material m : warehouse.getMaterials()) {
+            if (m.getId().equals(materialId)) {
+                material = m;
+                break;
+            }
+        }
+
+        if (material == null) {
+            throw new RuntimeException("Material Is not found");
+        }
+
+        return material.getQuantity();
+    }
+
 
 }
